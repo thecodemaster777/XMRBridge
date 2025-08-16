@@ -23,17 +23,29 @@ xmrbridge/
 │       ├── config.rs         # TODO: Load env/file config (config + clap)
 │       ├── error.rs          # TODO: Common error handling with anyhow/thiserror
 │       └── logging.rs        # TODO: Setup tracing + telemetry
+│       └── tests/            # Unit tests grouped by module
+│           ├── api_tests.rs          # TODO: Test invoice endpoints
+│           ├── db_tests.rs           # TODO: Test SQLx queries
+│           ├── service_tests.rs      # TODO: Test subaddress gen, watcher, etc.
+│           └── security_tests.rs     # TODO: HMAC/JWT verification
+│   └── tests/                  # Integration tests (cargo will run these)
+│       ├── integration_invoices.rs   # TODO: Spin up API + test POST /invoices flow
+│       ├── integration_webhooks.rs   # TODO: Test webhook callbacks
+│       └── mock_wallet_rpc.rs        # TODO: Mock monero-wallet-rpc responses
 │
 ├── crates/                   # Internal shared libraries
 │   ├── monero-rpc/
 │   │   ├── Cargo.toml
 │   │   └── src/lib.rs        # TODO: Minimal RPC client wrapper for monero-wallet-rpc
+│   │   └── tests/            # TODO: Test RPC client stubs
 │   ├── security-utils/
 │   │   ├── Cargo.toml
 │   │   └── src/lib.rs        # TODO: HMAC signing/verification, JWT helpers
+│   │   └── tests/            # TODO: Test HMAC signing + JWT
 │   └── price-engine/
 │       ├── Cargo.toml
 │       └── src/lib.rs        # TODO: Unified interface for fetching price quotes
+│       └── tests/            # TODO: Test fiat -> XMR conversions
 │
 ├── migrations/               # SQL migrations for Postgres
 │   └── 0001_init.sql         # TODO: Create merchants, orders, payments tables
@@ -42,5 +54,9 @@ xmrbridge/
 │   ├── run_dev.sh            # TODO: Run local dev (gateway + DB)
 │   ├── reset_db.sh           # TODO: Drop/recreate DB schema
 │   └── seed_db.sh            # TODO: Insert test merchant + sample order
+│
+├── tests/                     # Top-level E2E tests
+│   ├── e2e_checkout.rs       # TODO: Simulate end-to-end checkout
+│   └── e2e_payment_confirm.rs# TODO: Simulate XMR payment confirmation flow
 │
 └── README.md                 # Project overview + setup instructions
