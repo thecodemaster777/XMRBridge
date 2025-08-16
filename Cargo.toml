@@ -1,0 +1,9 @@
+# XMRBridge workspace
+
+[workspace]
+members = [
+    "gateway",
+    "crates/monero-rpc",
+    "crates/security-utils",
+    "crates/price-engine"
+]

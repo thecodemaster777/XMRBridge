@@ -1,0 +1,9 @@
+[package]
+name = "security-utils"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hmac = "0.12"
+jsonwebtoken = "9"
+ring = "0.17"

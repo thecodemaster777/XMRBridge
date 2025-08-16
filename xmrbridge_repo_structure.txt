@@ -1,0 +1,46 @@
+xmrbridge/
+├── Cargo.toml                # Workspace manifest
+├── gateway/                  # Main backend service (binary)
+│   ├── Cargo.toml
+│   └── src/
+│       ├── main.rs           # Entry point for the service
+│       ├── api/
+│       │   ├── mod.rs        # API module root
+│       │   ├── invoices.rs   # TODO: REST endpoints for invoices
+│       │   ├── merchants.rs  # TODO: REST endpoints for merchant config
+│       │   └── webhooks.rs   # TODO: REST endpoints for webhook testing/receiving
+│       ├── db/
+│       │   ├── mod.rs        # TODO: DB connection pool setup (sqlx)
+│       │   ├── models.rs     # TODO: Order, Merchant, Payment structs mapped to DB
+│       │   └── queries.rs    # TODO: SQLx queries (CRUD for orders/payments)
+│       ├── services/
+│       │   ├── mod.rs        # Module root
+│       │   ├── subaddress.rs # TODO: Generate unique Monero subaddresses
+│       │   ├── price.rs      # TODO: Fetch fiat <-> XMR rates via APIs
+│       │   ├── watcher.rs    # TODO: Poll wallet RPC, update payments
+│       │   ├── callback.rs   # TODO: Send signed webhooks to merchant sites
+│       │   └── security.rs   # TODO: HMAC/JWT auth + signature verification
+│       ├── config.rs         # TODO: Load env/file config (config + clap)
+│       ├── error.rs          # TODO: Common error handling with anyhow/thiserror
+│       └── logging.rs        # TODO: Setup tracing + telemetry
+│
+├── crates/                   # Internal shared libraries
+│   ├── monero-rpc/
+│   │   ├── Cargo.toml
+│   │   └── src/lib.rs        # TODO: Minimal RPC client wrapper for monero-wallet-rpc
+│   ├── security-utils/
+│   │   ├── Cargo.toml
+│   │   └── src/lib.rs        # TODO: HMAC signing/verification, JWT helpers
+│   └── price-engine/
+│       ├── Cargo.toml
+│       └── src/lib.rs        # TODO: Unified interface for fetching price quotes
+│
+├── migrations/               # SQL migrations for Postgres
+│   └── 0001_init.sql         # TODO: Create merchants, orders, payments tables
+│
+├── scripts/
+│   ├── run_dev.sh            # TODO: Run local dev (gateway + DB)
+│   ├── reset_db.sh           # TODO: Drop/recreate DB schema
+│   └── seed_db.sh            # TODO: Insert test merchant + sample order
+│
+└── README.md                 # Project overview + setup instructions

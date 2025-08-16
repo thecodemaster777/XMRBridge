@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://xmrbridge:xmrbridge@db:5432/xmrbridge
+      RUST_LOG: info
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: xmrbridge
+      POSTGRES_PASSWORD: xmrbridge
+      POSTGRES_DB: xmrbridge
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  wallet-rpc-mock:
+    image: ghcr.io/monero-ecosystem/monero-wallet-rpc-docker:latest
+    # TODO: Replace with actual monero-wallet-rpc image/config when ready
+    environment:
+      WALLET_RPC_USER: user
+      WALLET_RPC_PASS: pass
+    ports:
+      - "18082:18082"
+
+volumes:
+  db_data:
