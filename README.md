@@ -70,13 +70,39 @@ MONERO_RPC_PASSWORD=rpc_password
 ## Running The Service
 
 ```bash
-# Run migrations
 ./scripts/reset_db.sh
 ./scripts/seed_db.sh
 
-# Start backend service
+Start backend service
+``` bash
 cargo run -p gateway
-
 
 The HTTP API will be available at http://127.0.0.1:8080.
 
+
+# Database Migrations
+
+All migrations are in migrations/. Example:
+
+0001_init.sql → creates tables for merchants, orders, and payments.
+
+Use sqlx CLI for applying migrations:
+
+```bash
+cargo install sqlx-cli
+sqlx database setup
+sqlx migrate run
+
+# Testing
+
+Unit Tests: cargo test -p gateway
+
+Integration Tests: cargo test --test integration_invoices
+
+End-to-End Tests: cargo test --test e2e_checkout
+
+Tests are organized per module and also include top-level E2E scenarios simulating checkout and payment confirmation.
+
+# License
+
+All rights reserved. This project is proprietary and owned by The Market Index LLC.
